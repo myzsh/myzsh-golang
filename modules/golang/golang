@@ -1,0 +1,15 @@
+go () {
+	case "$1" in
+	"coverweb")
+		shift
+		repo="${PWD//$GOPATH\/src\//}"
+		t=$(tempfile)
+		command go test $COVERFLAGS -coverprofile=$t "$repo" && go tool cover -html=$t -o coverage.html && unlink $t
+	;;
+	*)
+	command go "$@"
+	;;
+	esac
+}
+
+# vim: filetype=zsh noexpandtab
