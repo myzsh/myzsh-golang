@@ -5,7 +5,7 @@ go () {
 	"coverweb")
 		shift
 		repo="${PWD//$GOPATH\/src\//}"
-		t="$(mktemp)"
+		t="$(mktemp $TMPDIR/coverage.out)"
 		command go test $COVERFLAGS -coverprofile="$t" "$repo" && go tool cover -html="$t" -o coverage.html && unlink "$t"
 	;;
 	"cd")
