@@ -1,0 +1,17 @@
+#compdef go
+
+_go () {
+	local -a verbs
+	IFS=$'\n'
+	case "$words[2]" in
+	*)
+		verbs=(
+			"cd:Jump to a project in $GOPATH"
+			"get:Fetch a remote library and place it in $GOPATH"
+		)
+		_describe -t commands 'myzsh commands' verbs -V1;;
+	esac
+	return 1
+}
+
+_go "$@"

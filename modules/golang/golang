@@ -1,3 +1,5 @@
+compdef _go go
+
 go () {
 	case "$1" in
 	"coverweb")
