@@ -6,6 +6,14 @@ go () {
 		t=$(tempfile)
 		command go test $COVERFLAGS -coverprofile=$t "$repo" && go tool cover -html=$t -o coverage.html && unlink $t
 	;;
+	"cd")
+		shift
+		if [ -z "$1" ]; then
+			cd "$GOPATH/src/"
+		else
+			cd `go list -f '{{.Dir}}' ".../$1" | head -n 1`
+		fi
+	;;
 	*)
 	command go "$@"
 	;;
