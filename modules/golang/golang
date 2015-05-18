@@ -20,4 +20,6 @@ go () {
 	esac
 }
 
+export PATH=$PATH:$GOPATH/bin
+
 # vim: filetype=zsh noexpandtab
