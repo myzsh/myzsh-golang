@@ -1,6 +1,6 @@
 #compdef go
 
-_go () {
+_golang () {
 	local -a verbs
 	IFS=$'\n'
 	case "$words[2]" in
@@ -14,4 +14,4 @@ _go () {
 	return 1
 }
 
-_go "$@"
+_golang "$@"

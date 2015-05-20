@@ -1,4 +1,4 @@
-compdef _go go
+compdef _golang go
 
 go () {
 	case "$1" in
