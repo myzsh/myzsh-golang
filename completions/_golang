@@ -1,13 +1,38 @@
 #compdef go
 
 _golang () {
+	getpackages() {
+		local -a packges
+		packages=(
+		$(go list -f '{{.Dir}}' "..." 2>/dev/null | sed 's/\/.*\///g' 2>/dev/null)
+		)
+		_describe -t commands "go $1" packages -V1
+	}
+
 	local -a verbs
 	IFS=$'\n'
 	case "$words[2]" in
+	cd)
+		getpackages cd
+	;;
 	*)
 		verbs=(
-			"cd:Jump to a project in $GOPATH"
-			"get:Fetch a remote library and place it in $GOPATH"
+			"build:Compile pacakges and dependencies"
+			"cd:Jump to a project directory"
+			"clean:Remove object files"
+			"coverweb:View code coverage"
+			"env:Print Go environment information"
+			"fix:Run go tool fix on packages"
+			"fmt:Run gofmt on package sources"
+			"generate:Generate Go files by processing source"
+			"get:Download and install packages and dependencies"
+			"install:Compile and install packages and dependencies"
+			"list:List packages"
+			"run:Compile and run Go program"
+			"test:Test packages"
+			"tool:Run specified go tool"
+			"version:Print Go version"
+			"vet:Run go tool vet on packages"
 		)
 		_describe -t commands 'myzsh commands' verbs -V1;;
 	esac
