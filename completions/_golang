@@ -1,40 +1,50 @@
 #compdef go
 
 _golang () {
-	getpackages() {
-		local -a packges
-		packages=(
-		$(go list -f '{{.Dir}}' "..." 2>/dev/null | sed 's/\/.*\///g' 2>/dev/null)
+	_packages_available() {
+		local -a packages_available
+		packages_available=(
+			$(go list -f '{{.Dir}}' "..." 2>/dev/null | grep -v "libexec/src" | sed 's/\/.*\///g' 2>/dev/null)
 		)
-		_describe -t commands "go $1" packages -V1
+		_describe -t arguments "go $1" packages_available
 	}
 
-	local -a verbs
-	IFS=$'\n'
+	_repos_available() {
+		_values -s / 'repos' $(ls $GOPATH/src | sed 's/\///g')
+	}
+
+	local -a _1st_arguments
+	_1st_arguments=(
+		"build:Compile pacakges and dependencies"
+		"cd:Jump to a project directory"
+		"clean:Remove object files"
+		"coverweb:View code coverage"
+		"env:Print Go environment information"
+		"fix:Run go tool fix on packages"
+		"fmt:Run gofmt on package sources"
+		"generate:Generate Go files by processing source"
+		"get:Download and install packages and dependencies"
+		"install:Compile and install packages and dependencies"
+		"list:List packages"
+		"run:Compile and run Go program"
+		"test:Test packages"
+		"tool:Run specified go tool"
+		"version:Print Go version"
+		"vet:Run go tool vet on packages"
+	)
+
+	if (( $CURRENT == 2 )); then
+		_describe -t commands "go subcommand" _1st_arguments
+		return
+	fi
+
 	case "$words[2]" in
 	cd)
-		getpackages cd
+		_packages_available cd
 	;;
-	*)
-		verbs=(
-			"build:Compile pacakges and dependencies"
-			"cd:Jump to a project directory"
-			"clean:Remove object files"
-			"coverweb:View code coverage"
-			"env:Print Go environment information"
-			"fix:Run go tool fix on packages"
-			"fmt:Run gofmt on package sources"
-			"generate:Generate Go files by processing source"
-			"get:Download and install packages and dependencies"
-			"install:Compile and install packages and dependencies"
-			"list:List packages"
-			"run:Compile and run Go program"
-			"test:Test packages"
-			"tool:Run specified go tool"
-			"version:Print Go version"
-			"vet:Run go tool vet on packages"
-		)
-		_describe -t commands 'myzsh commands' verbs -V1;;
+	get)
+		_repos_available get
+	;;
 	esac
 	return 1
 }
