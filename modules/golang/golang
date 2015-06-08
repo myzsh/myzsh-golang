@@ -16,6 +16,10 @@ go () {
 			cd `go list -f '{{.Dir}}' ".../$1" | head -n 1`
 		fi
 	;;
+	"get")
+		shift
+		command go get $(echo $1 | sed 's/^http.*:\/*//')
+	;;
 	*)
 	command go "$@"
 	;;
