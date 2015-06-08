@@ -1,3 +1,5 @@
+compdef _golang go
+
 go () {
 	case "$1" in
 	"coverweb")
