@@ -6,7 +6,7 @@ go () {
 		shift
 		repo="${PWD//$GOPATH\/src\//}"
 		( islinux && t=$(mktemp) ) || t="$(mktemp -t coverage)"
-		command go test $COVERFLAGS -coverprofile="$t" "$repo" && go tool cover -html="$t" -o coverage.html && unlink "$t"
+		command go test $COVERFLAGS -coverprofile="$t" "$repo" && go tool cover -html="$t" "$@" && unlink "$t"
 	;;
 	"cd")
 		shift
