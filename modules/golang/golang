@@ -1,5 +1,11 @@
 compdef _golang go
 
+function _deps(){
+	app="go"
+
+	$(hash $app 2>/dev/null) || $(myzsh error "Couldn't find application ${app}" && return 1)
+}
+
 go () {
 	case "$1" in
 	"coverweb")
