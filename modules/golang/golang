@@ -1,4 +1,7 @@
 compdef _golang go
+globalvar GOPATH "$HOME/go" "Root of all Go projects"
+export GOPATH
+export PATH=$PATH:$GOPATH/bin
 
 go () {
 	case "$1" in
