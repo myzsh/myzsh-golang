@@ -3,6 +3,15 @@ globalvar GOPATH "$HOME/go" "Root of all Go projects"
 export GOPATH
 export PATH=$PATH:$GOPATH/bin
 
+function _deps(){
+	app="go"
+
+	if ! hash $app 2>/dev/null; then
+		myzsh error "Couldn't find application ${app}"
+		return 1
+	fi
+}
+
 go () {
 	case "$1" in
 	"coverweb")
