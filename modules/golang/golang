@@ -37,7 +37,6 @@ go () {
 		case "$1" in
 		"novendor" | "nv")
 			shift
-			echo "go test \$(go list ./... | grep -v /vendor/) \"$@\""
 			command go test $(go list ./... | grep -v /vendor/) "$@"
 		;;
 		*)
