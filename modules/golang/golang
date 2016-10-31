@@ -40,7 +40,7 @@ go () {
 			command go test $(go list ./... | grep -v /vendor/) "$@"
 		;;
 		*)
-			command go "$@"
+			command go test "$@"
 		;;
 		esac
 	;;
