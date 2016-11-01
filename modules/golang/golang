@@ -32,6 +32,18 @@ go () {
 		shift
 		command go get $(echo $1 | sed -E 's/^https?:\/*//')
 	;;
+	"test")
+		shift
+		case "$1" in
+		"novendor" | "nv")
+			shift
+			command go test $(go list ./... | grep -v /vendor/) "$@"
+		;;
+		*)
+			command go test "$@"
+		;;
+		esac
+	;;
 	*)
 	command go "$@"
 	;;
